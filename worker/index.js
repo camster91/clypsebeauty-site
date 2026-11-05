@@ -10,6 +10,7 @@ export default {
   const url=new URL(request.url);
   if(url.hostname==='clypsebeauty.com'){url.hostname='www.clypsebeauty.com';return Response.redirect(url,301);}
   if(['/cart','/cart/','/checkout','/checkout/'].includes(url.pathname))return Response.redirect(new URL('/shop/',url),302);
+  if(['/my-account','/my-account/'].includes(url.pathname))return Response.redirect(new URL('/contact/',url),302);
   if(url.pathname==='/wp-admin/admin-ajax.php')return handleForm(request,env,sendMail);
   if(url.searchParams.has('add-to-cart'))return Response.redirect(new URL('/contact/',url),302);
   if(url.searchParams.has('wc-ajax'))return Response.json({fragments:{},cart_hash:''},{headers:{'Cache-Control':'no-store'}});

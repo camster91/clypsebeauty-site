@@ -9,7 +9,7 @@ for p in (ROOT/'source-html').glob('*.html'):
  s=BeautifulSoup(text,'html.parser')
  for x in s.select('link[rel="https://api.w.org/"],link[type="application/json"],link[rel="EditURI"],link[rel="shortlink"]'):x.decompose()
  for x in s.find_all('script',src=True):
-  if any(v in x['src'] for v in ['simple-cloudflare-turnstile','challenges.cloudflare.com','add-to-cart.min.js','cart-fragments.min.js','order-attribution.min.js','sourcebuster']):x.decompose()
+  if any(v in x['src'] for v in ['simple-cloudflare-turnstile','challenges.cloudflare.com','add-to-cart.min.js','cart-fragments.min.js','order-attribution.min.js','sourcebuster','woocommerce-gateway-stripe','/frontend/checkout.min.js','custom-place-order-button.min.js']):x.decompose()
  for x in s.find_all(True):
   for a,v in list(x.attrs.items()):
    if isinstance(v,str) and not (x.name=='link' and x.get('rel')==['canonical']) and not (x.name=='meta' and a=='content'):
@@ -22,6 +22,10 @@ for p in (ROOT/'source-html').glob('*.html'):
   a=s.new_tag('a',href='/contact/');a['class']=['button','elementor-button','contact-to-order'];a.string='Contact to order';f.replace_with(a)
  for a in s.select('a.add_to_cart_button,a[href*="add-to-cart="]'):
   a['href']='/contact/';a['class']=[v for v in a.get('class',[]) if v not in ['add_to_cart_button','ajax_add_to_cart']];a.string='Contact to order'
+ for a in s.select('a[href="/my-account/"]'):
+  a['href']='/contact/'
+  label=a.select_one('.elementor-button-text')
+  if label:label.string='CONTACT US'
  # With checkout disabled, the header bag becomes a direct shop link.
  for a in s.select('a.elementor-menu-cart__toggle_button'):
   a['href']='/shop/';a['aria-label']='Shop products';a.attrs.pop('aria-expanded',None);a.attrs.pop('id',None)
