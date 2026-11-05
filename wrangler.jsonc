@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "clypsebeauty",
+  "account_id": "1b2e351cbb39ab6b80efe36ca3577fe5",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-04",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {"directory":"./dist","binding":"ASSETS","run_worker_first":true,"html_handling":"auto-trailing-slash","not_found_handling":"404-page"},
+  "kv_namespaces":[{"binding":"SUBMISSIONS","id":"ea10b4ec822745119f0ed43842a55393"}],
+  "vars":{"EMAIL_FROM":"website@forms.clypsebeauty.com","FORM_RECIPIENT":"","EMAIL_READY":"false"},
+  "observability":{"enabled":true,"head_sampling_rate":0.1}
+}

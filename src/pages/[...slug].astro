@@ -1,0 +1,10 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+export function getStaticPaths() {
+ const root=path.resolve('html');
+ return fs.readdirSync(root).filter(f=>f.endsWith('.html')&&f!=='404.html').map(file=>({params:{slug:file==='index.html'?undefined:file.slice(0,-5).replaceAll('__','/')},props:{file}}));
+}
+const html=fs.readFileSync(path.resolve('html',Astro.props.file),'utf8');
+---
+<Fragment set:html={html} />
